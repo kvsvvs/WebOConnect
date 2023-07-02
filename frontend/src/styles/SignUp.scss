@@ -1,0 +1,68 @@
+.Signup {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  .UsertypeDropdown {
+    border: none;
+    border-bottom: 1px solid $primaryColor;
+    color: $primaryColor;
+    font-size: 14px;
+    font-family: $global-font;
+    width: 95px;
+    outline: none;
+  }
+  .OuterContainer {
+    width: 70%;
+    .InnerContainer2 {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: #ffffff;
+      padding: 40px 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      .FormContainer {
+        width: 70%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        .Form {
+          width: 100%;
+          .inputPair {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            .inputWrapper {
+              flex-basis: 45%;
+              position: relative;
+              margin-bottom: 15px;
+              width: 100%;
+              .PasswordDivs {
+                position: relative;
+                .PasswordVisibilityBtn {
+                  position: absolute;
+                  right: 12px;
+                  top: 50%;
+                  transform: translateY(-50%);
+                  background: none;
+                  border: none;
+                  cursor: pointer;
+                  z-index: 5;
+                  outline: none;
+                }
+                .invalidConfirmPassword {
+                  border: 1px solid red;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

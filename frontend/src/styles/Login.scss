@@ -1,0 +1,119 @@
+.login {
+  .OuterContainer {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .InnerContainer {
+    width: 100%;
+    height: 100%;
+    max-width: 360px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .ForgotPasswordBtn {
+    border: none;
+    font-family: $global-font;
+    font-size: 16px;
+    text-decoration: none;
+    font-weight: 400;
+    cursor: pointer;
+    outline: none;
+    color: #4285f4;
+    border-radius: 4px;
+    padding: 11.5px 16px;
+    margin-top: 20px;
+  }
+  .PasswordVisibilityBtn {
+    border: none;
+    cursor: pointer;
+    outline: none;
+    background-color: transparent;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    border-radius: 4px;
+  }
+  .PasswordVisibilityBtn i {
+    color: #666666;
+  }
+  .SignupDiv {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+  }
+  .SignUpBtn {
+    border: none;
+    font-family: $global-font;
+    font-size: 16px;
+    font-weight: 400;
+    cursor: pointer;
+    outline: none;
+    color: #4285f4;
+    border-radius: 4px;
+    text-decoration: none;
+  }
+  .TextA {
+    font-family: $global-font;
+    font-size: 16px;
+    font-weight: 400;
+    color: #828282;
+    margin: 0px;
+  }
+  .MainLogo {
+    margin-bottom: 60px;
+  }
+  .TextB {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 100%;
+    color: #4f4f4f;
+    margin: 10px 0px 10px 10px;
+  }
+  .TextC {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 100%;
+    color: #4f4f4f;
+    margin: 10px 0px 40px 10px;
+  }
+  .TextD {
+    position: absolute;
+    top: 95%;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 100%;
+    color: #4f4f4f;
+  }
+  .InputField {
+    padding: 0px 12px;
+
+    width: 100%;
+    height: 56px;
+    border: 0.5px solid #bdbdbd;
+    border-radius: 4px;
+    background: #ffffff;
+
+    box-shadow: none;
+  }
+
+  .InputField:focus {
+    border: 1px solid #8256ff;
+    box-shadow: 0px 0px 0px 3px rgba(130, 86, 255, 0.2);
+    outline: none;
+  }
+
+  .LoginForm {
+    width: 100%;
+  }
+}

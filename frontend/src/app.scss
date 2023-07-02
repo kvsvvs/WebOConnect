@@ -1,0 +1,98 @@
+@import 'styles/variable';
+@import 'styles/Login';
+@import 'styles/SignUp.scss';
+@import 'styles/ResetPassword.scss';
+@import 'styles/Profile.scss';
+@import 'styles/Forms.scss';
+// @import 'styles/Home.scss';
+body {
+  font-family: $global-font;
+}
+h1 {
+  font-size: 32px;
+  font-family: $global-font;
+  font-weight: 300;
+  margin: 0px;
+}
+h2 {
+  font-size: 28px;
+  font-family: $global-font;
+  font-weight: 300;
+  margin: 0px;
+}
+h3 {
+  font-size: 20px;
+  font-family: $global-font;
+  font-weight: 300;
+  margin: 0px;
+}
+h4 {
+  font-size: 18px;
+  font-family: $global-font;
+  font-weight: 300;
+  margin: 0px;
+}
+.p-large {
+  font-size: 16px;
+  font-family: $global-font;
+  font-weight: 300;
+  margin: 0px;
+}
+.p-medium {
+  font-size: 14px;
+  font-family: $global-font;
+  font-weight: 300;
+  margin: 0px;
+}
+.p-small {
+  font-size: 13px;
+  font-family: $global-font;
+  font-weight: 300;
+  margin: 0px;
+}
+label {
+  font-size: 20px;
+  font-family: $global-font;
+  font-weight: 300;
+  margin: 0px;
+}
+.label-small {
+  font-size: 13px;
+}
+input {
+  font-family: $global-font;
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+button {
+  display: block;
+  background-color: $primaryColor;
+  color: $bgLight;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  font-size: 13px;
+}
+button:hover {
+  background-color: $btnHover;
+}
+.BtnTransparent {
+  background-color: transparent;
+  padding: 0px;
+  border: none;
+}
+.BtnTransparent:hover {
+  background-color: transparent;
+  padding: 0px;
+  border: none;
+}
+.boldFont {
+  font-weight: 500;
+}
