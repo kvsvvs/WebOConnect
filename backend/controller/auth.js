@@ -6,29 +6,27 @@ const express = require('express');
 const router = express.Router();
 
 module.exports.createUser = async (req, res) => {
-  // Updated to use Sequelize methods.
-  const { name, email, password, cpassword, userType } = req.body;
+  try {
+    const userData = req.body;
 
-  const user = await User.create({
-    name,
-    email,
-    password,
-    cpassword,
-    userType,
-    verificationToken: crypto.randomBytes(20).toString('hex'),
-  });
+    const user = await User.create({
+      name: userData.name,
+      email: userData.email,
+      password: bcrypt.hashSync(userData.password, 10),
+      gender: userData.gender,
+      phone: userData.phone,
+      status: 'Pending',
+      date: new Date(),
+      profile_pic: null,
+      verificationToken: crypto.randomBytes(20).toString('hex'),
+    });
 
-  // Updated to use Sequelize methods.
-  const resp = await user.save();
-
-  const verificationLink = `${req.protocol}://${req.get('host')}/auth/verify/${
-    user.verificationToken
-  }`;
-
-  await sendEmail(user.email, 'verification', { verificationLink });
-
-  const authToken = jwt.sign({ id: user.id }, process.env.JWTPRIVATEKEY);
-  res.status(201).json({ success: true, user: resp, authToken });
+    const authToken = jwt.sign({ id: user.id }, process.env.JWTPRIVATEKEY);
+    res.status(201).json({ success: true, user, authToken });
+  } catch (error) {
+    console.error('Error details:', error);
+    res.status(500).json({ success: false, message: error.message });
+  }
 };
 
 module.exports.updateProfile = async (req, res) => {
@@ -69,12 +67,6 @@ module.exports.loginUser = async (req, res) => {
   const foundUser = await User.findOne({ where: { email: email.trim() } });
 
   if (foundUser && bcrypt.compareSync(password.trim(), foundUser.password)) {
-    if (!foundUser.verified) {
-      return res
-        .status(401)
-        .json({ success: false, message: 'Email not verified' });
-    }
-
     const authToken = jwt.sign({ id: foundUser.id }, process.env.JWTPRIVATEKEY);
     res.status(201).json({ success: true, authToken });
   } else {
@@ -82,4 +74,12 @@ module.exports.loginUser = async (req, res) => {
   }
 };
 
-// Similar changes are applied to other methods as well.
+module.exports.getAllUsers = async (req, res) => {
+  try {
+    const users = await User.findAll();
+    res.status(200).json({ success: true, users });
+  } catch (error) {
+    console.error('Error details:', error);
+    res.status(500).json({ success: false, message: error.message });
+  }
+};

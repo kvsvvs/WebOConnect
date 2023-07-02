@@ -15,8 +15,7 @@ const CreateUser = () => {
     email: '',
     password: '',
     cpassword: '',
-    userType: '',
-    avatar: defaultAvatar,
+    profile_pic: defaultAvatar,
   });
 
   const handleInputChange = (e) => {
@@ -32,14 +31,14 @@ const CreateUser = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { name, email, password, cpassword, userType, avatar } = credentials;
+    const { name, email, password, avatar, phone, gender } = credentials;
 
     const body = new FormData();
     body.append('name', name);
     body.append('email', email);
     body.append('password', password);
-    body.append('cpassword', cpassword);
-    body.append('userType', userType);
+    body.append('phone', phone);
+    body.append('gender', gender);
     body.append('avatar', avatar);
 
     // Fetch token from localStorage
@@ -89,10 +88,9 @@ const CreateUser = () => {
       email: '',
       password: '',
       cpassword: '',
-      userType: '',
     });
 
-    navigate('/dashboard');
+    navigate('/login');
   };
 
   const togglePasswordVisibility = () => {
@@ -109,7 +107,7 @@ const CreateUser = () => {
         <div className='OuterContainer'>
           <div className='InnerContainer2'>
             <div className='FormContainer'>
-              <h2 className='mb-4'>Create Your Employee's Account</h2>
+              <h2 className='mb-4'>Register with WebOConnect</h2>
               <form onSubmit={handleSubmit} className='Form'>
                 <div className='inputPair'>
                   <div className='inputWrapper'>
@@ -127,7 +125,6 @@ const CreateUser = () => {
                     />
                   </div>
                   <div className='inputWrapper'>
-                    {' '}
                     <label htmlFor='email' className='label-small'>
                       Email
                     </label>
@@ -140,6 +137,38 @@ const CreateUser = () => {
                       onChange={handleInputChange}
                       className=''
                     />
+                  </div>
+                </div>
+                <div className='inputPair'>
+                  <div className='inputWrapper'>
+                    <label htmlFor='phone' className='label-small'>
+                      Phone
+                    </label>
+                    <input
+                      type='text'
+                      placeholder='Phone'
+                      name='phone'
+                      id='phone'
+                      value={credentials.phone}
+                      onChange={handleInputChange}
+                      className=''
+                    />
+                  </div>
+                  <div className='inputWrapper'>
+                    <label htmlFor='gender' className='label-small'>
+                      Gender
+                    </label>
+                    <select
+                      name='gender'
+                      id='gender'
+                      value={credentials.gender}
+                      onChange={handleInputChange}
+                      className=''
+                    >
+                      <option value=''>Select gender</option>
+                      <option value='Male'>Male</option>
+                      <option value='Female'>Female</option>
+                    </select>
                   </div>
                 </div>
                 <div className='inputPair'>
@@ -204,27 +233,10 @@ const CreateUser = () => {
                     </div>
                   </div>
                 </div>
-                <label htmlFor='userType' className='label-small'>
-                  User Type
-                </label>
-                <div className='inputWrapper'>
-                  <select
-                    id='userType'
-                    name='userType'
-                    onChange={handleInputChange}
-                    className='UsertypeDropdown'
-                    value={credentials.userType}
-                  >
-                    <option value=''>Select User Type</option>
-                    <option value='Admin'>Admin</option>
-                    <option value='Manager'>Manager</option>
-                    <option value='Employee'>Employee</option>
-                  </select>
-                </div>
 
                 {errorMessage && <div className='error'>{errorMessage}</div>}
                 <button type='submit' className='mx-auto mt-5'>
-                  Register Employee
+                  Register
                 </button>
               </form>
             </div>

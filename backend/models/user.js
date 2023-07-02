@@ -52,49 +52,51 @@ class User extends Model {
 
 User.init(
   {
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
     name: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      type: DataTypes.STRING(50),
+      allowNull: true,
     },
     email: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      type: DataTypes.STRING(50),
+      allowNull: true,
       unique: true,
     },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false,
+    gender: {
+      type: DataTypes.ENUM('Male', 'Female'),
+      allowNull: true,
     },
-    phone: DataTypes.STRING,
-    address: DataTypes.STRING,
-    department: DataTypes.STRING,
-    designation: DataTypes.STRING,
-    dateOfJoining: DataTypes.DATE,
-    salary: DataTypes.STRING,
+    phone: {
+      type: DataTypes.STRING(15),
+      allowNull: true,
+    },
+    password: {
+      type: DataTypes.CHAR(60),
+      allowNull: true,
+    },
+    status: {
+      type: DataTypes.ENUM('Pending', 'Active', 'Deactivated'),
+      allowNull: true,
+    },
     date: {
       type: DataTypes.DATE,
       defaultValue: Sequelize.NOW,
     },
-    profilePicture: {
-      type: DataTypes.STRING,
-      defaultValue: defaultAvatar,
+    profile_pic: {
+      type: DataTypes.STRING(255),
+      allowNull: true,
     },
-    userType: {
-      type: DataTypes.ENUM,
-      values: ['Admin', 'Manager', 'Employee'],
-      defaultValue: 'Employee',
-    },
-    verificationToken: DataTypes.STRING,
-    verified: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
-    },
-    resetPasswordToken: DataTypes.STRING,
-    resetPasswordExpire: DataTypes.DATE,
   },
   {
     sequelize,
     modelName: 'User',
+    tableName: 'users',
+    underscored: true,
+    timestamps: false, // Disable timestamp fields (createdAt and updatedAt)
   }
 );
 

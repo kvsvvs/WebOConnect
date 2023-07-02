@@ -40,7 +40,6 @@ router.post(
   '/createuser',
   upload.single('profilePicture'),
   validateUserRegister,
-  fetchUser,
   catchAsync(createUser)
 );
 
@@ -51,7 +50,7 @@ router.put(
   catchAsync(updateProfile)
 );
 
-router.get('/users', fetchUser, catchAsync(getUsers));
+router.get('/users', catchAsync(getAllUsers));
 
 router.get('/verify/:token', async (req, res) => {
   const token = req.params.token;

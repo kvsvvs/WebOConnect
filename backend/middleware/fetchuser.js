@@ -2,6 +2,7 @@ require('dotenv').config();
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 const { UserSchema, UserSchemaLogin } = require('../joiSchema');
+const ExpressError = require('../utils/ExpressError');
 
 module.exports.validateUserRegister = (req, res, next) => {
   const { error } = UserSchema.validate(req.body);

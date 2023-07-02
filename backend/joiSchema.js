@@ -4,15 +4,8 @@ module.exports.UserSchema = Joi.object({
   name: Joi.string().min(3).max(25).required(),
   email: Joi.string().email().required(),
   password: Joi.string().min(5).required(),
-  cpassword: Joi.string().min(0),
   phone: Joi.string().length(10),
-  address: Joi.string().min(3),
-  department: Joi.string().min(3),
-  designation: Joi.string().min(3),
-  dateOfJoining: Joi.date().allow(null),
-  salary: Joi.number().min(3),
-  userType: Joi.string().min(3),
-  verified: Joi.boolean(),
+  gender: Joi.string().min(3),
   avatar: Joi.string(),
 });
 

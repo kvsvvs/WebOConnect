@@ -22,18 +22,12 @@ function App() {
     <Router>
       <Routes>
         <Route
-          path='/'
+          path='/login'
           element={<Login onAuthentication={handleAuthentication} />}
         />
-        <Route
-          path='/dashboard'
-          element={
-            <PrivateRoute isAuthenticated={isAuthenticated}>
-              <Route index element={<Home />} />
-            </PrivateRoute>
-          }
-        />
-        <Route path='/signup' element={<SignUp />} />
+        <Route path='/dashboard' element={<Home />} />
+
+        <Route path='/' element={<SignUp />} />
         <Route path='/forgot-password' element={<ForgotPassword />} />
         <Route
           path='/profile'
