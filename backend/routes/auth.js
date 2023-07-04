@@ -11,6 +11,7 @@ const {
   getAllUsers,
   getUsers,
   getUserById,
+  deleteUser,
 } = require('../controller/auth');
 const {
   validateUserRegister,
@@ -74,6 +75,7 @@ router.get('/verify/:token', async (req, res) => {
 });
 router.post('/login', validateUserLogin, catchAsync(loginUser));
 router.get('/getuser', fetchUser, catchAsync(getUser));
+router.delete('/deleteprofile', fetchUser, catchAsync(deleteUser));
 router.post('/forgotpassword', catchAsync(forgotPassword));
 router.put('/resetpassword/:resetToken', catchAsync(resetPassword));
 router.get('/user/:userId', fetchUser, catchAsync(getUserById));

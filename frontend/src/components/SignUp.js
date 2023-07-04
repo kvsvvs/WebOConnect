@@ -41,21 +41,9 @@ const CreateUser = () => {
     body.append('gender', gender);
     body.append('avatar', avatar);
 
-    // Fetch token from localStorage
-    const authToken = localStorage.getItem('token');
-    if (!authToken) {
-      setErrorMessage('No auth token in localStorage. Please log in again.');
-      return;
-    }
-
-    // Include the token in the headers
-    const headers = new Headers();
-    headers.append('auth-token', authToken);
-
     // Make the POST request with headers including the token
     const response = await fetch(`${API_BASE_URL}auth/createuser`, {
       method: 'POST',
-      headers: headers,
       body: body,
     });
 
@@ -237,6 +225,13 @@ const CreateUser = () => {
                 {errorMessage && <div className='error'>{errorMessage}</div>}
                 <button type='submit' className='mx-auto mt-5'>
                   Register
+                </button>
+                <button
+                  type='button'
+                  className='mx-auto mt-5'
+                  onClick={() => navigate('/login')}
+                >
+                  Go To Login
                 </button>
               </form>
             </div>

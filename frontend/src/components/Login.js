@@ -113,12 +113,6 @@ const Login = (props) => {
             Forgot Password?
           </button>
 
-          {/* <div className={style1.SignupDiv}>
-        <p className={style1.TextA}>Are you new here? &nbsp;</p>
-         <Link className={style1.SignUpBtn} to='/signup' role='button'>
-          Signup
-        </Link>
-      </div> */}
           {errorMessage && (
             <div className='alert alert-danger mt-3' role='alert'>
               {errorMessage}

@@ -4,8 +4,8 @@ import defaultAvatar from '../assets/defaultAvatar.svg';
 
 const ProfileUpdate = () => {
   const API_BASE_URL = process.env.REACT_APP_SERVER_URL;
-
   const navigate = useNavigate();
+
   const [user, setUser] = useState(null);
   useEffect(() => {
     const fetchUserData = async () => {
@@ -25,15 +25,8 @@ const ProfileUpdate = () => {
             setUser(json);
             setProfileData({
               phone: json.phone || '',
-              address: json.address || '',
-              department: json.department || '',
-              designation: json.designation || '',
-              dateOfJoining: json.dateOfJoining
-                ? new Date(json.dateOfJoining).toISOString().split('T')[0]
-                : '',
-              salary: json.salary || '',
               profilePicture: null,
-              userType: json.userType || '',
+              gender: json.gender || '',
             });
           }
         } catch (error) {
@@ -47,12 +40,8 @@ const ProfileUpdate = () => {
 
   const [profileData, setProfileData] = useState({
     phone: '',
-    address: '',
-    department: '',
-    designation: '',
-    dateOfJoining: '',
-    salary: '',
     profilePicture: null,
+    gender: '',
   });
 
   const handleInputChange = (e) => {
@@ -62,32 +51,24 @@ const ProfileUpdate = () => {
     });
   };
 
+  const handleNavigateToDashboard = () => {
+    navigate('/dashboard');
+  };
+
   const handleFileChange = (e) => {
     setProfileData({
       ...profileData,
       profilePicture: e.target.files[0],
     });
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const {
-      phone,
-      address,
-      department,
-      designation,
-      dateOfJoining,
-      salary,
-      profilePicture,
-    } = profileData;
+    const { phone, profilePicture, gender } = profileData;
 
     let body = new FormData();
     body.append('phone', phone);
-    body.append('address', address);
-    body.append('department', department);
-    body.append('designation', designation);
-    body.append('dateOfJoining', dateOfJoining);
-    body.append('salary', salary);
+
+    body.append('gender', gender);
     if (profilePicture) {
       body.append('profilePicture', profilePicture);
     }
@@ -108,6 +89,28 @@ const ProfileUpdate = () => {
       // Handle error
     }
   };
+  const handleDeleteProfile = async () => {
+    const token = localStorage.getItem('token');
+
+    try {
+      const response = await fetch(`${API_BASE_URL}auth/deleteprofile`, {
+        method: 'DELETE',
+        headers: {
+          'auth-token': token,
+        },
+      });
+
+      if (!response.ok) {
+        const errorMessage = await response.text();
+        throw new Error(errorMessage);
+      }
+
+      localStorage.removeItem('token');
+      navigate('/login');
+    } catch (error) {
+      console.error('Error while deleting profile:', error.message);
+    }
+  };
 
   return (
     <>
@@ -118,7 +121,9 @@ const ProfileUpdate = () => {
               <>
                 <img
                   src={
-                    `${API_BASE_URL}${user?.profilePicture}` || defaultAvatar
+                    user?.profile_pic
+                      ? `${API_BASE_URL}${user?.profile_pic}`
+                      : defaultAvatar
                   }
                   alt={user.name}
                   className='profilePicture mb-4'
@@ -173,70 +178,22 @@ const ProfileUpdate = () => {
                     />
                   </div>
                   <div className='flexItem'>
-                    <label htmlFor='address' className='label-small'>
-                      Address
+                    <label htmlFor='gender' className='label-small'>
+                      Gender
                     </label>
-                    <input
-                      type='text'
-                      id='address'
-                      name='address'
-                      value={profileData.address}
+                    <select
+                      id='gender'
+                      name='gender'
+                      value={profileData.gender}
                       onChange={handleInputChange}
                       className=''
-                    />
+                    >
+                      <option value=''>Select gender</option>
+                      <option value='Male'>Male</option>
+                      <option value='Female'>Female</option>
+                    </select>
                   </div>
-                  <div className='flexItem'>
-                    <label htmlFor='department' className='label-small'>
-                      Department
-                    </label>
-                    <input
-                      type='text'
-                      id='department'
-                      name='department'
-                      value={profileData.department}
-                      onChange={handleInputChange}
-                      className=''
-                    />
-                  </div>
-                  <div className='flexItem'>
-                    <label htmlFor='designation' className='label-small'>
-                      Designation
-                    </label>
-                    <input
-                      type='text'
-                      id='designation'
-                      name='designation'
-                      value={profileData.designation}
-                      onChange={handleInputChange}
-                      className=''
-                    />
-                  </div>
-                  <div className='flexItem'>
-                    <label htmlFor='dateOfJoining' className='label-small'>
-                      Date Of Joining
-                    </label>
-                    <input
-                      type='date'
-                      id='dateOfJoining'
-                      name='dateOfJoining'
-                      value={profileData.dateOfJoining}
-                      onChange={handleInputChange}
-                      className=''
-                    />
-                  </div>
-                  <div className='flexItem'>
-                    <label htmlFor='salary' className='label-small'>
-                      Salary
-                    </label>
-                    <input
-                      type='number'
-                      id='salary'
-                      name='salary'
-                      value={profileData.salary}
-                      onChange={handleInputChange}
-                      className=''
-                    />
-                  </div>
+
                   <div className='flexItem'>
                     <label htmlFor='profilePicture' className='label-small'>
                       Profile Picture
@@ -252,6 +209,20 @@ const ProfileUpdate = () => {
                 </div>
                 <button type='submit' className='mx-auto '>
                   Save Changes
+                </button>
+                <button
+                  type='button'
+                  className='mx-auto '
+                  onClick={handleDeleteProfile}
+                >
+                  Delete Profile
+                </button>
+                <button
+                  type='button'
+                  className='mx-auto '
+                  onClick={handleNavigateToDashboard}
+                >
+                  Go To Dashboard
                 </button>
               </form>
             </div>

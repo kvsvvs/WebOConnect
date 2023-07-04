@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Papa from 'papaparse';
-import { Link } from 'react-router-dom';
-
+import { Link, useNavigate } from 'react-router-dom';
 const Home = () => {
   const API_BASE_URL = process.env.REACT_APP_SERVER_URL;
   const [users, setUsers] = useState([]);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchUsers = async () => {
       const token = localStorage.getItem('token');
-      console.log(token);
       const response = await fetch(`${API_BASE_URL}auth/users`, {
         headers: {
           'auth-token': token,
@@ -51,6 +49,11 @@ const Home = () => {
     link.click();
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/login');
+  };
+
   return (
     <div>
       <h1>Users</h1>
@@ -63,7 +66,6 @@ const Home = () => {
             <th>Gender</th>
             <th>Phone</th>
             <th>Status</th>
-            <th>Profile Pic</th>
           </tr>
         </thead>
         <tbody>
@@ -75,13 +77,11 @@ const Home = () => {
               <td>{user.gender}</td>
               <td>{user.phone}</td>
               <td>{user.status}</td>
-              <td>
-                <img src={user.profile_pic} alt='profile' />
-              </td>
             </tr>
           ))}
         </tbody>
       </table>
+      <button onClick={handleLogout}>Logout</button>
       <button onClick={handleDownloadCSV}>Download CSV</button>
       <Link to='/profile'>
         <button>Go To Profile</button>

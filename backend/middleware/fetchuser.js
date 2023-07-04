@@ -30,7 +30,7 @@ module.exports.fetchUser = async (req, res, next) => {
     try {
       const data = jwt.verify(token, process.env.JWTPRIVATEKEY);
       // Fetch the user from the database
-      const user = await User.findByPk(data._id);
+      const user = await User.findByPk(data.id);
       if (!user) {
         return res.status(401).json({ message: 'Invalid user' });
       }

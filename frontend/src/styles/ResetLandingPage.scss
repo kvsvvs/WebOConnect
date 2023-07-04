@@ -1,0 +1,23 @@
+.ResetLandingPage {
+  .OuterContainer {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .InnerContainer {
+      max-width: 600px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      .TextB {
+        color: #4285f4;
+        text-align: center;
+        margin: 3rem 0px;
+        text-decoration: none;
+      }
+    }
+  }
+}

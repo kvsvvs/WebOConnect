@@ -8,6 +8,7 @@ import ForgotPassword from './components/ForgotPassword';
 import ResetPassword from './components/ResetPassword';
 import PrivateRoute from './PrivateRoute';
 import ProfileUpdate from './components/Profile';
+import ResetLandingPage from './components/ResetLandingPage';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -25,19 +26,18 @@ function App() {
           path='/login'
           element={<Login onAuthentication={handleAuthentication} />}
         />
-        <Route path='/dashboard' element={<Home />} />
-
         <Route path='/' element={<SignUp />} />
+        <Route path='/resetLanding' element={<ResetLandingPage />} />
         <Route path='/forgot-password' element={<ForgotPassword />} />
-        <Route
-          path='/profile'
-          element={
-            <PrivateRoute isAuthenticated={isAuthenticated}>
-              <Route index element={<ProfileUpdate />} />
-            </PrivateRoute>
-          }
-        />
         <Route path='/passwordReset/:resetToken' element={<ResetPassword />} />
+
+        <Route
+          path=''
+          element={<PrivateRoute isAuthenticated={isAuthenticated} />}
+        >
+          <Route path='/dashboard' element={<Home />} />
+          <Route path='/profile' element={<ProfileUpdate />} />
+        </Route>
       </Routes>
     </Router>
   );
